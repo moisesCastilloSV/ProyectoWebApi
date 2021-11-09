@@ -1,4 +1,5 @@
-﻿using Api.DTOs;
+﻿ 
+using Api.DTOs.Actor;
 using Api.DTOs.Genero;
 using Api.Models;
 using AutoMapper;
@@ -11,6 +12,9 @@ namespace Api.Helpers
         {
             CreateMap<Genero,GeneroDTO>().ReverseMap();
             CreateMap<GeneroCreacionDTO, Genero>();
+
+            CreateMap<Actor, ActorDTO>().ReverseMap();
+            CreateMap<ActorCreacionDTO, Actor>();
         }
 
     }
