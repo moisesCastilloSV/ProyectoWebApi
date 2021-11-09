@@ -21,7 +21,9 @@ namespace Api
             services.AddDbContext<ApiCTX>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddControllers();
+            services.AddControllers()
+                .AddNewtonsoftJson();
+
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
         }
