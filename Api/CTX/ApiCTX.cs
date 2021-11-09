@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Api.CTX
+
 {
     public partial class ApiCTX : DbContext
     {
@@ -32,8 +33,6 @@ namespace Api.CTX
             modelBuilder.Entity<Genero>(entity =>
             {
                 entity.ToTable("Genero");
-
-                entity.Property(e => e.ID).ValueGeneratedNever();
 
                 entity.Property(e => e.Nombre)
                     .HasMaxLength(255)
