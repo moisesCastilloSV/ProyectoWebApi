@@ -24,8 +24,8 @@ public class GenerosController : ControllerBase
     public async Task<ActionResult<List<GeneroDTO>>> Get()
     {
         var entidades= await context.Generos.ToListAsync();
-        var dtos = mapper.Map <List<GeneroDTO>>(entidades);
-        return dtos;
+        return mapper.Map <List<GeneroDTO>>(entidades);
+          
     }
     [HttpGet("{id:int}", Name="obtenerGenero")]
     public async Task<ActionResult<GeneroDTO>> Get(int id)

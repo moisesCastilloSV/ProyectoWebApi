@@ -6,13 +6,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Api.Models
 {
-    [Table("Genero")]
-    public partial class Genero
+    [Table("Pelicula")]
+    public partial class Pelicula
     {
         [Key]
         public int ID { get; set; }
         [StringLength(255)]
         [Unicode(false)]
-        public string Nombre { get; set; } = null!;
+        public string Titulo { get; set; } = null!;
+        public bool EnCines { get; set; }
+        [Column(TypeName = "datetime")]
+        public DateTime FechaEstreno { get; set; }
     }
 }

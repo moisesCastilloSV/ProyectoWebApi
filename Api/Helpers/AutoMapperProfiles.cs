@@ -1,6 +1,7 @@
 ﻿ 
 using Api.DTOs.Actor;
 using Api.DTOs.Genero;
+using Api.DTOs.Pelicula;
 using Api.Models;
 using AutoMapper;
 
@@ -15,9 +16,10 @@ namespace Api.Helpers
 
             CreateMap<Actor, ActorDTO>().ReverseMap();
             CreateMap<ActorCreacionDTO, Actor>();
-
-
             CreateMap<ActorPatchDTO,Actor>().ReverseMap();
+
+            CreateMap<Pelicula, PeliculaDTO>().ReverseMap();
+            CreateMap<PeliculaCreacionDTO, Pelicula>();
         }
 
     }

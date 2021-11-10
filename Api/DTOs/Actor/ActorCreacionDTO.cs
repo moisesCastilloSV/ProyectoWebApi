@@ -8,5 +8,7 @@ namespace Api.DTOs.Actor
         public string Nombre { get; set; } = null!;
         [Required]
         public DateTime FechaNacimiento { get; set; }
+
+        //public IFormFile Foto { get; set; }
     }
 }

@@ -5,4 +5,4 @@ https://docs.microsoft.com/en-us/ef/core/cli/dotnet
 https://docs.microsoft.com/en-us/ef/core/managing-schemas/scaffolding?tabs=dotnet-core-cli
 
 
-dotnet ef dbcontext scaffold "server=DMDUDB;Database=Api;Trusted_Connection=False; User ID=AdministradorDBA;Password=2021#ADMINUDB@;" Microsoft.EntityFrameworkCore.SqlServer -o Models -t Actor --use-database-names -c "ApiCTX" --context-dir CTX  -d  --force
+dotnet ef dbcontext scaffold "server=DMDUDB;Database=Api;Trusted_Connection=False; User ID=AdministradorDBA;Password=2021#ADMINUDB@;" Microsoft.EntityFrameworkCore.SqlServer -o Models -t Genero -t Actor -t Pelicula --use-database-names -c "ApiCTX" --context-dir CTX  --data-annotations  --force

@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Api.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Api.Models;
 
 namespace Api.CTX
-
 {
     public partial class ApiCTX : DbContext
     {
@@ -18,8 +17,9 @@ namespace Api.CTX
         {
         }
 
-        public virtual DbSet<Genero> Generos { get; set; } = null!;
         public virtual DbSet<Actor> Actors { get; set; } = null!;
+        public virtual DbSet<Genero> Generos { get; set; } = null!;
+        public virtual DbSet<Pelicula> Peliculas { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -31,30 +31,6 @@ namespace Api.CTX
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Genero>(entity =>
-            {
-                entity.ToTable("Genero");
-
-                entity.Property(e => e.Nombre)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
-            });
-
-            modelBuilder.Entity<Actor>(entity =>
-            {
-                entity.ToTable("Actor");
-
-                entity.Property(e => e.FechaNacimiento).HasColumnType("datetime");
-
-                entity.Property(e => e.Foto)
-                    .HasMaxLength(500)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Nombre)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
-            });
-
             OnModelCreatingPartial(modelBuilder);
         }
 
