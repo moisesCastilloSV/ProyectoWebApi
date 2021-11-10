@@ -1,4 +1,4 @@
-﻿namespace Api.Entidades
+﻿namespace Api.Interface
 {
     public interface IId
     {

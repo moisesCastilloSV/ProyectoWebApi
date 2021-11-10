@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Api.Entidades;
+using Api.Interface;
 using Microsoft.EntityFrameworkCore;
 
 namespace Api.Models
