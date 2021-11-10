@@ -1,5 +1,5 @@
 ﻿using Api.CTX;
-using Api.Entidades;
+using Api.Interface;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
