@@ -1,5 +1,7 @@
 ﻿using Api.CTX;
+using Api.DTOs;
 using Api.DTOs.Actor;
+using Api.Helpers;
 using Api.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.JsonPatch;
@@ -23,11 +25,13 @@ namespace Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<ActorDTO>>> Get()
+        public async Task<ActionResult<List<ActorDTO>>> Get([FromQuery] PaginacionDTO paginacionDTO)
         {
-            var entidades = await context.Actors.ToListAsync();
-            var dtos = mapper.Map<List<ActorDTO>>(entidades);
-            return dtos;
+            var queryable= context.Actors.AsQueryable();
+            await HttpContext.InsertarParametrosPaginacion(queryable, paginacionDTO.CantidadRegistrosPorPagina);
+            var entidades = await queryable.Paginar(paginacionDTO).ToListAsync();
+            return mapper.Map<List<ActorDTO>>(entidades);
+              
         }
 
         [HttpGet("{id:int}", Name = "obtenerActor")]
@@ -93,6 +97,9 @@ namespace Api.Controllers
             await context.SaveChangesAsync();
             return NoContent();
         }
+
+         
+
 
 
     }
