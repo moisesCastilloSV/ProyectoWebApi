@@ -41,10 +41,16 @@ namespace Api.Controllers
         public async Task<ActionResult> Post([FromBody] PeliculaCreacionDTO peliculaCreacionDTO)
         {
             var entidad = mapper.Map<Pelicula>(peliculaCreacionDTO);
+
+            if (peliculaCreacionDTO.Actors == null)
+            {
+                return BadRequest("No se puede crear un libro sin autores");
+            }                       
             context.Add(entidad);
             await context.SaveChangesAsync();
             var peliculaDTO = mapper.Map<PeliculaDTO>(entidad);
             return new CreatedAtRouteResult("obtenerPelicula", new { id = peliculaDTO.ID }, peliculaDTO);
+            //return Ok();
 
 
         }

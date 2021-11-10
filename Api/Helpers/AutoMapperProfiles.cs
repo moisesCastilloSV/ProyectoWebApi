@@ -19,7 +19,21 @@ namespace Api.Helpers
             CreateMap<ActorPatchDTO,Actor>().ReverseMap();
 
             CreateMap<Pelicula, PeliculaDTO>().ReverseMap();
-            CreateMap<PeliculaCreacionDTO, Pelicula>();
+            CreateMap<PeliculaCreacionDTO, Pelicula>()
+                .ForMember(pelicula => pelicula.PeliculaActores, opciones => opciones.MapFrom(MapActoresPeliculas));
+
+        }
+
+        private List<PeliculaActore> MapActoresPeliculas(PeliculaCreacionDTO peliculaCreacionDTO, Pelicula pelicula)
+        {
+            var result= new List<PeliculaActore>();
+            if (peliculaCreacionDTO.Actors == null) { return result; }
+
+            foreach (var actor in peliculaCreacionDTO.Actors)
+            {
+                result.Add(new PeliculaActore() { ActorId = actor.ActorId,Personaje=actor.Personaje ,Orden=actor.orden});
+            }
+            return result;
         }
 
     }

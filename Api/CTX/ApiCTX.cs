@@ -21,6 +21,7 @@ namespace Api.CTX
         public virtual DbSet<Genero> Generos { get; set; } = null!;
         public virtual DbSet<Pelicula> Peliculas { get; set; } = null!;
         public virtual DbSet<PeliculaActore> PeliculaActores { get; set; } = null!;
+      
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -35,14 +36,14 @@ namespace Api.CTX
             modelBuilder.Entity<PeliculaActore>(entity =>
             {
                 entity.HasOne(d => d.Actor)
-                    .WithMany(p => p.PeliculaActoreActors)
+                    .WithMany(p => p.PeliculaActores)
                     .HasForeignKey(d => d.ActorId)
-                    .HasConstraintName("FK__PeliculaA__Actor__2C3393D0");
+                    .HasConstraintName("FK__PeliculaA__Actor__398D8EEE");
 
                 entity.HasOne(d => d.Pelicula)
-                    .WithMany(p => p.PeliculaActorePeliculas)
+                    .WithMany(p => p.PeliculaActores)
                     .HasForeignKey(d => d.PeliculaId)
-                    .HasConstraintName("FK__PeliculaA__Pelic__2D27B809");
+                    .HasConstraintName("FK__PeliculaA__Pelic__3A81B327");
             });
 
             OnModelCreatingPartial(modelBuilder);

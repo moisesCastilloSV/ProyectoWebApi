@@ -1,19 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Api.Interface;
+using System.ComponentModel.DataAnnotations.Schema; 
 using Microsoft.EntityFrameworkCore;
 
 namespace Api.Models
 {
     [Table("Actor")]
-    public partial class Actor: IId
+    public partial class Actor 
     {
         public Actor()
         {
-            PeliculaActoreActors = new HashSet<PeliculaActore>();
-            PeliculaActorePeliculas = new HashSet<PeliculaActore>();
+            PeliculaActores = new HashSet<PeliculaActore>();
         }
 
         [Key]
@@ -28,8 +26,6 @@ namespace Api.Models
         public string? Foto { get; set; }
 
         [InverseProperty(nameof(PeliculaActore.Actor))]
-        public virtual ICollection<PeliculaActore> PeliculaActoreActors { get; set; }
-        [InverseProperty(nameof(PeliculaActore.Pelicula))]
-        public virtual ICollection<PeliculaActore> PeliculaActorePeliculas { get; set; }
+        public virtual ICollection<PeliculaActore> PeliculaActores { get; set; }
     }
 }

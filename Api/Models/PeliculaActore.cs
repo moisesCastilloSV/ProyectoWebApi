@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Api.Interface;
+ 
 using Microsoft.EntityFrameworkCore;
 
 namespace Api.Models
 {
-    public partial class PeliculaActore : IId
+    public partial class PeliculaActore  
     {
         [Key]
         public int ID { get; set; }
@@ -19,10 +19,10 @@ namespace Api.Models
         public int Orden { get; set; }
 
         [ForeignKey(nameof(ActorId))]
-        [InverseProperty("PeliculaActoreActors")]
+        [InverseProperty("PeliculaActores")]
         public virtual Actor? Actor { get; set; }
         [ForeignKey(nameof(PeliculaId))]
-        [InverseProperty("PeliculaActorePeliculas")]
-        public virtual Actor? Pelicula { get; set; }
+        [InverseProperty("PeliculaActores")]
+        public virtual Pelicula? Pelicula { get; set; }
     }
 }
