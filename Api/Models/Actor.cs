@@ -9,6 +9,12 @@ namespace Api.Models
     [Table("Actor")]
     public partial class Actor
     {
+        public Actor()
+        {
+            PeliculaActoreActors = new HashSet<PeliculaActore>();
+            PeliculaActorePeliculas = new HashSet<PeliculaActore>();
+        }
+
         [Key]
         public int ID { get; set; }
         [StringLength(255)]
@@ -19,5 +25,10 @@ namespace Api.Models
         [StringLength(500)]
         [Unicode(false)]
         public string? Foto { get; set; }
+
+        [InverseProperty(nameof(PeliculaActore.Actor))]
+        public virtual ICollection<PeliculaActore> PeliculaActoreActors { get; set; }
+        [InverseProperty(nameof(PeliculaActore.Pelicula))]
+        public virtual ICollection<PeliculaActore> PeliculaActorePeliculas { get; set; }
     }
 }
