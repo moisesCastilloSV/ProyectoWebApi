@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Api.Entidades;
 using Microsoft.EntityFrameworkCore;
 
 namespace Api.Models
 {
-    public partial class PeliculaActore
+    public partial class PeliculaActore : IId
     {
         [Key]
         public int ID { get; set; }

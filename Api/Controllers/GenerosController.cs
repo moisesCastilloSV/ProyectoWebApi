@@ -9,12 +9,13 @@ namespace Api.Controllers;
 
 [ApiController]
 [Route("api/generos")]
-public class GenerosController : ControllerBase
+public class GenerosController : CustomBaseController
 {
     private readonly ApiCTX context;
     private readonly IMapper mapper;
 
     public GenerosController(ApiCTX context,IMapper mapper)
+        :base(context,mapper)
     {
         this.context = context;
         this.mapper = mapper;
@@ -23,53 +24,32 @@ public class GenerosController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<List<GeneroDTO>>> Get()
     {
-        var entidades= await context.Generos.ToListAsync();
-        return mapper.Map <List<GeneroDTO>>(entidades);
+        return await Get<Genero, GeneroDTO>();
           
     }
+
     [HttpGet("{id:int}", Name="obtenerGenero")]
     public async Task<ActionResult<GeneroDTO>> Get(int id)
     {
-         var entidad = await context.Generos.FirstOrDefaultAsync(x=> x.ID == id);
-        if (entidad == null) { return NotFound(); }
-        var dtos = mapper.Map<GeneroDTO>(entidad);
-        return dtos;
+         return await Get<Genero,GeneroDTO>(id);
     }
 
     [HttpPost]
     public  async Task<ActionResult>Post([FromBody] GeneroCreacionDTO generoCreacionDTO)
     {
-        var entidad =mapper.Map<Genero>(generoCreacionDTO);
-        context.Add(entidad);
-        await context.SaveChangesAsync();
-        var generoDTO = mapper.Map<GeneroDTO>(entidad);
-        return new CreatedAtRouteResult("obtenerGenero", new { id = generoDTO.ID }, generoDTO);
-
-
+        return await Post<GeneroCreacionDTO, Genero, GeneroDTO>(generoCreacionDTO, "obtenerGenero");
     }
 
     [HttpPut("{id}")]
     public async Task<ActionResult> Put(int id, [FromBody] GeneroCreacionDTO generoCreacionDTO)
     {
-        var entidad = mapper.Map<Genero>(generoCreacionDTO);
-        entidad.ID= id;
-        context.Entry(entidad).State = EntityState.Modified;
-        await context.SaveChangesAsync(); 
-        return NoContent();
+        return await Put<GeneroCreacionDTO, Genero>(id, generoCreacionDTO);
     }
 
     [HttpDelete("{id}")]
     public async Task<ActionResult> Delete(int id)
     {
-        var existe= await context.Generos.AnyAsync(x=>x.ID==id);
-        if (!existe)
-        {
-            return NotFound();
-        }
-        context.Remove(new Genero() { ID=id});
-        await context.SaveChangesAsync();
-
-        return NoContent();
+        return await Delete<Genero>(id);
     }
 
 }
