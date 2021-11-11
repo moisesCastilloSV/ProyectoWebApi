@@ -1,5 +1,7 @@
 ﻿using Api.CTX;
+using Api.DTOs;
 using Api.DTOs.Pelicula;
+using Api.Helpers;
 using Api.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -27,6 +29,23 @@ namespace Api.Controllers
             return mapper.Map<List<PeliculaDTO>>(entidades);
 
         }
+
+        [HttpGet("peliculadetalles/{id:int}", Name = "obtenerPeliculaDetalles")]
+        public async Task<ActionResult<PeliculasDetallesDTO>> GetPeliculasActores(int id)
+        {
+            var entidad = await context.Peliculas
+                                .Include(x=>x.PeliculaActores).ThenInclude(x=> x.Actor)
+                                .FirstOrDefaultAsync(x => x.ID == id);
+            if (entidad == null) { return NotFound(); }
+            entidad.PeliculaActores=entidad.PeliculaActores.OrderBy(x=>x.Orden).ToList();//devuelve los actores en el orden guardado
+            return mapper.Map<PeliculasDetallesDTO>(entidad);
+
+        }
+
+ 
+
+
+
 
         [HttpGet("{id:int}", Name = "obtenerPelicula")]
         public async Task<ActionResult<PeliculaDTO>> Get(int id)

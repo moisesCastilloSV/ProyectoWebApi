@@ -22,6 +22,9 @@ namespace Api.Helpers
             CreateMap<PeliculaCreacionDTO, Pelicula>()
                 .ForMember(pelicula => pelicula.PeliculaActores, opciones => opciones.MapFrom(MapActoresPeliculas));
 
+
+            CreateMap<Pelicula, PeliculasDetallesDTO>()
+                .ForMember(x => x.Actores, options => options.MapFrom(MapActorPeliculaDetalle));
         }
 
         private List<PeliculaActore> MapActoresPeliculas(PeliculaCreacionDTO peliculaCreacionDTO, Pelicula pelicula)
@@ -32,6 +35,18 @@ namespace Api.Helpers
             foreach (var actor in peliculaCreacionDTO.Actors)
             {
                 result.Add(new PeliculaActore() { ActorId = actor.ActorId,Personaje=actor.Personaje ,Orden=actor.orden});
+            }
+            return result;
+        }
+
+        private List<ActorPeliculaDetalleDTO> MapActorPeliculaDetalle(Pelicula pelicula,  PeliculasDetallesDTO  peliculasDetallesDTO)
+        {
+            var result = new List<ActorPeliculaDetalleDTO>();
+            if (pelicula.PeliculaActores == null) { return result; }
+
+            foreach (var actor in pelicula.PeliculaActores)
+            {
+                result.Add(new ActorPeliculaDetalleDTO() { ActorId = (int)actor.ActorId, Personaje = actor.Personaje, Nombre = actor.Actor.Nombre });
             }
             return result;
         }
