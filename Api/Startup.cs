@@ -32,11 +32,11 @@ namespace Api
         {
             if (env.IsDevelopment())
             {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-                //app.UseDeveloperExceptionPage();
+               
+                app.UseDeveloperExceptionPage();
             }
-
+            app.UseSwagger();
+            app.UseSwaggerUI();
             app.UseHttpsRedirection();
 
             app.UseStaticFiles();

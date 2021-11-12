@@ -8,13 +8,17 @@ namespace Api.CTX
 {
     public partial class ApiCTX : DbContext
     {
+        private readonly IConfiguration configuration;
+
         public ApiCTX()
         {
+            
         }
 
-        public ApiCTX(DbContextOptions<ApiCTX> options)
+        public ApiCTX(DbContextOptions<ApiCTX> options, IConfiguration configuration)
             : base(options)
         {
+            this.configuration = configuration;
         }
 
         public virtual DbSet<Actor> Actors { get; set; } = null!;
@@ -27,7 +31,7 @@ namespace Api.CTX
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("server=DMDUDB;Database=Api;Trusted_Connection=False; User ID=AdministradorDBA;Password=2021#ADMINUDB@;");
+                optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
             }
         }
 
